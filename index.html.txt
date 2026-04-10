@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrid Survival Tour - Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f4ece1; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 1rem; padding: 1rem; }
+        .checkpoint-done { border: 2px solid #22c55e; background-color: #f0fdf4; }
+        #login-overlay { position: fixed; inset: 0; background: #2d3436; display: flex; align-items: center; justify-content: center; z-index: 100; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <div id="login-overlay">
+        <div class="text-center p-8 bg-white rounded-xl shadow-2xl mx-4">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Madrid Survival Tour 🏁</h2>
+            <p class="mb-4 text-sm text-gray-600">Insere o código de convite:</p>
+            <input type="password" id="invite-code" class="border-2 border-gray-300 p-2 rounded mb-4 w-full text-center" placeholder="Código">
+            <button onclick="checkAccess()" class="bg-yellow-500 text-white font-bold py-2 px-6 rounded-full w-full">Entrar</button>
+        </div>
+    </div>
+
+    <div class="max-w-md mx-auto p-4">
+        <header class="text-center mb-6">
+            <h1 class="text-3xl font-black text-gray-800 uppercase tracking-tight">Rally Paper</h1>
+            <p class="text-red-600 font-bold italic">Madrid Survival Tour</p>
+        </header>
+
+        <div class="card overflow-hidden p-0">
+            <img src="madrid_daniel.jpg" alt="Mapa do Rally" class="w-full h-auto">
+            <p class="text-center text-xs p-2 text-gray-500">Consulta o mapa oficial acima 👆</p>
+        </div>
+
+        <div class="sticky top-2 z-50 bg-black text-white p-4 rounded-full flex justify-between items-center shadow-lg mb-6 border-2 border-yellow-400">
+            <span class="font-bold ml-2">PONTUAÇÃO TOTAL:</span>
+            <span id="total-score" class="text-2xl font-black mr-2 text-yellow-400">0</span>
+        </div>
+
+        <div id="missions-container">
+            <div class="card">
+                <h3 class="font-bold text-blue-600 border-b mb-3">ETAPA 1 - Aeroporto</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between">
+                        <span class="text-sm">Bilhete sem ajuda (+5)</span>
+                        <input type="checkbox" data-pts="5" class="mission-cb w-6 h-6">
+                    </label>
+                    <label class="flex items-center justify-between">
+                        <span class="text-sm">Metro correto à 1ª (+10)</span>
+                        <input type="checkbox" data-pts="10" class="mission-cb w-6 h-6">
+                    </label>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="font-bold text-orange-600 border-b mb-3">ETAPA 2 - Pequeno Almoço</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between">
+                        <span class="text-sm">Pedir em Espanhol (+15)</span>
+                        <input type="checkbox" data-pts="15" class="mission-cb w-6 h-6">
+                    </label>
+                    <label class="flex items-center justify-between">
+                        <span class="text-sm">Brinde com desconhecidos (+10)</span>
+                        <input type="checkbox" data-pts="10" class="mission-cb w-6 h-6">
+                    </label>
+                    <label class="flex items-center justify-between">
+                        <span class="text-sm">Foto artística bocata (+25)</span>
+                        <input type="checkbox" data-pts="25" class="mission-cb w-6 h-6">
+                    </label>
+                </div>
+            </div>
+
+            <div class="card bg-red-50">
+                <h3 class="font-bold text-red-600 border-b mb-3 text-center italic font-black">PENALIZAÇÕES</h3>
+                <label class="flex items-center justify-between">
+                    <span class="text-sm">Sair demasiado sóbrio (-10)</span>
+                    <input type="checkbox" data-pts="-10" class="mission-cb w-6 h-6 border-red-500">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ACCESS_CODE = "MADRID2024"; // ALTERA O TEU CÓDIGO AQUI
+
+        function checkAccess() {
+            const input = document.getElementById('invite-code').value;
+            if(input.toUpperCase() === ACCESS_CODE) {
+                document.getElementById('login-overlay').style.display = 'none';
+            } else {
+                alert("Código errado, mi amigo!");
+            }
+        }
+
+        // Lógica de Pontos
+        const checkboxes = document.querySelectorAll('.mission-cb');
+        const scoreDisplay = document.getElementById('total-score');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                calculateTotal();
+                saveState();
+            });
+        });
+
+        function calculateTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if(cb.checked) total += parseInt(cb.getAttribute('data-pts'));
+            });
+            scoreDisplay.innerText = total;
+        }
+
+        function saveState() {
+            const state = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('rallyState', JSON.stringify(state));
+        }
+
+        // Carregar progresso ao abrir
+        window.onload = () => {
+            const savedState = JSON.parse(localStorage.getItem('rallyState'));
+            if(savedState) {
+                checkboxes.forEach((cb, index) => {
+                    cb.checked = savedState[index];
+                });
+                calculateTotal();
+            }
+        }
+    </script>
+</body>
+</html>
