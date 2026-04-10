@@ -1,61 +1,109 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madrid Survival Tour</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #f4ece1; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        #login-overlay { position: fixed; inset: 0; background: #2d3436; display: flex; align-items: center; justify-content: center; z-index: 100; }
-        .map-container { max-width: 100%; overflow-x: hidden; }
-        img { box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; }
-    </style>
-</head>
-<body class="p-0 m-0">
+<!DOCTYPE html><html lang="pt"><head>
 
-    <div id="login-overlay">
-        <div class="text-center p-8 bg-white rounded-xl shadow-2xl mx-4">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Madrid Survival Tour 🏁</h2>
-            <p class="mb-4 text-sm text-gray-600">Insere o código de convite:</p>
-            <input type="password" id="invite-code" class="border-2 border-gray-300 p-2 rounded mb-4 w-full text-center" placeholder="Código">
-            <button onclick="checkAccess()" class="bg-yellow-500 text-white font-bold py-2 px-6 rounded-full w-full uppercase tracking-wider">Entrar</button>
-        </div>
-    </div>
+<meta charset="UTF-8">
 
-    <div class="max-w-screen-md mx-auto p-2 md:p-4">
-        <header class="text-center py-4">
-            <h1 class="text-2xl font-black text-gray-800 uppercase italic">Madrid Survival Tour</h1>
-        </header>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div class="map-container">
-            <img src="madrid_daniel.png" alt="Rally Paper Madrid" class="w-full h-auto block mx-auto">
-        </div>
+<title>Madrid Survival Tour</title>
 
-        <footer class="text-center py-8 text-gray-500 text-xs italic">
-            Buen viaje, chicos! 🇪🇸
-        </footer>
-    </div>
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-        const ACCESS_CODE = "MADRID2024"; // Podes alterar a tua password aqui
+<style>
 
-        function checkAccess() {
-            const input = document.getElementById('invite-code').value;
-            if(input.toUpperCase() === ACCESS_CODE) {
-                document.getElementById('login-overlay').style.display = 'none';
-                window.scrollTo(0, 0);
-            } else {
-                alert("Código errado!");
-            }
-        }
+body { background-color: #f4ece1; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-        // Permite carregar no "Enter" para entrar
-        document.getElementById('invite-code').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkAccess();
-            }
-        });
-    </script>
-</body>
-</html>
+#login-overlay { position: fixed; inset: 0; background: #2d3436; display: flex; align-items: center; justify-content: center; z-index: 100; }
+
+.map-container { max-width: 100%; overflow-x: hidden; }
+
+img { box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; }
+
+</style></head><body class="p-0 m-0">
+
+
+
+<div id="login-overlay">
+
+<div class="text-center p-8 bg-white rounded-xl shadow-2xl mx-4">
+
+<h2 class="text-2xl font-bold mb-4 text-gray-800">Madrid Survival Tour 🏁</h2>
+
+<p class="mb-4 text-sm text-gray-600">Insere o código de convite:</p>
+
+<input type="password" id="invite-code" class="border-2 border-gray-300 p-2 rounded mb-4 w-full text-center" placeholder="Código">
+
+<button onclick="checkAccess()" class="bg-yellow-500 text-white font-bold py-2 px-6 rounded-full w-full uppercase tracking-wider">Entrar</button>
+
+</div>
+
+</div>
+
+
+
+<div class="max-w-screen-md mx-auto p-2 md:p-4">
+
+<header class="text-center py-4">
+
+<h1 class="text-2xl font-black text-gray-800 uppercase italic">Madrid Survival Tour</h1>
+
+</header>
+
+
+
+<div class="map-container">
+
+<img src="madrid_daniel.png" alt="Rally Paper Madrid" class="w-full h-auto block mx-auto">
+
+</div>
+
+
+
+<footer class="text-center py-8 text-gray-500 text-xs italic">
+
+Buen viaje, chicos! 🇪🇸
+
+</footer>
+
+</div>
+
+
+
+<script>
+
+const ACCESS_CODE = "MADRID2024"; // Podes alterar a tua password aqui
+
+
+
+function checkAccess() {
+
+const input = document.getElementById('invite-code').value;
+
+if(input.toUpperCase() === ACCESS_CODE) {
+
+document.getElementById('login-overlay').style.display = 'none';
+
+window.scrollTo(0, 0);
+
+} else {
+
+alert("Código errado!");
+
+}
+
+}
+
+
+
+// Permite carregar no "Enter" para entrar
+
+document.getElementById('invite-code').addEventListener('keypress', function (e) {
+
+if (e.key === 'Enter') {
+
+checkAccess();
+
+}
+
+});
+
+</script></body></html>
